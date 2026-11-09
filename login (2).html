@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="https://occ.a.nflxso.net/dnmt/api/v6/iL4oJVDYZ8KLSrJ6eG2OwtghbfQ/AAAAAQ4TXm1OaapkwYRGseWYrT2HFpAFV7IX9bgV76BxLOD_049HTkgqZ6zq3enQ0gxU1b-868yGZj1I99Ak9oRykNILYsbpT_0d-be9QKbwkD8OfaEdWL-FHZBiORJ9ppzVCM1-mVn63afS.svg" alt="Logo">
+        </a>
+    </header>
+
+    <main>
+        <form class="login-card" id="login-form" novalidate>
+            <h1>Войти</h1>
+
+            <div class="field">
+                <input type="text" id="email" placeholder="Эл. почта или номер телефона" autocomplete="username">
+                <span class="error" id="email-error"></span>
+            </div>
+
+            <div class="field">
+                <input type="password" id="password" placeholder="Пароль" autocomplete="current-password">
+                <span class="error" id="password-error"></span>
+            </div>
+
+            <button type="submit" class="submit-btn">Войти</button>
+
+            <div class="or">ИЛИ</div>
+
+            <button type="button" class="code-btn">Использовать код для входа</button>
+
+            <a href="#" class="forgot">Забыли пароль?</a>
+
+            <label class="remember">
+                <input type="checkbox" checked>
+                <span>Запомнить меня</span>
+            </label>
+
+            <p class="signup">Впервые на Netflix? <a href="index.html">Зарегистрируйтесь сейчас.</a></p>
+
+            <p class="recaptcha">Эта страница защищена Google reCAPTCHA, чтобы мы убедились, что вы не бот.</p>
+        </form>
+    </main>
+
+    <script>
+        const form = document.getElementById('login-form');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const emailError = document.getElementById('email-error');
+        const passwordError = document.getElementById('password-error');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let valid = true;
+
+            const value = email.value.trim();
+            const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            const isPhone = /^\+?[0-9\s\-()]{7,15}$/.test(value);
+
+            if (!isEmail && !isPhone) {
+                emailError.textContent = 'Введите действительный адрес эл. почты или номер телефона.';
+                email.classList.add('invalid');
+                valid = false;
+            } else {
+                emailError.textContent = '';
+                email.classList.remove('invalid');
+            }
+
+            if (password.value.length < 4 || password.value.length > 60) {
+                passwordError.textContent = 'Пароль должен содержать от 4 до 60 символов.';
+                password.classList.add('invalid');
+                valid = false;
+            } else {
+                passwordError.textContent = '';
+                password.classList.remove('invalid');
+            }
+
+            if (valid) {
+                // Здесь отправка данных на сервер
+                alert('Вход выполнен (демо)');
+            }
+        });
+    </script>
+</body>
+</html>
